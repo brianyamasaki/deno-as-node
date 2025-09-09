@@ -8,6 +8,37 @@ Action | What you type into the terminal |
 --- | --- |
 Start executing *src/index.ts* | deno run start |
 
+## Stuff that needs to change
+
+### Import from Node Libraries
+Deno has done extensive work to be compatible with Node Libraries as described [here](https://docs.deno.com/examples/node_built_in/). 
+
+As an example:
+```
+// standard Node import of the file system library
+import fs from "fs";
+```
+Turns into:
+```
+// Node library compatibility for Deno looks like this
+import fs from "node:fs";
+```
+
+
+### Import from local files
+
+Importing from your local files will require that you explicit.y add ```.ts```, so instead of 
+```
+// standard import statements for JavaScript (2015 and above) and TypeScript
+import { Foo } from '../Utils';
+```
+You must type
+```
+// Deno requires the .ts qualifier, since without implies a js file
+import { Foo } from '../Utils.ts';
+```
+
+
 ## Security issues
 
 Deno is deadly serious about security and won't allow any reading or writing of files or network access until you explicitly allow these activities. 
